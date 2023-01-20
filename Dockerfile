@@ -16,5 +16,6 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 
 COPY telegram-online-checker.py /app/
+COPY telegram.session /app/
 
-RUN python3 /app/telegram-online-checker.py
+ENTRYPOINT ["python3", "/app/telegram-online-checker.py"]
