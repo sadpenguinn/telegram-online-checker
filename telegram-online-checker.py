@@ -1,6 +1,7 @@
 import asyncio
 import datetime
 import logging
+import zoneinfo
 import time
 import os
 
@@ -47,8 +48,9 @@ async def main():
                 logging.info('Send notification')
                 sleep(5 * TimeDefinition.HOURS)
             else:
-                hour_now = datetime.datetime.now().hour
-                hour_last_online = user.last_online_date.hour
+                tz = zoneinfo.ZoneInfo("Europe/Moscow")
+                hour_now = datetime.datetime.now().replace(tzinfo=tz).hour
+                hour_last_online = user.last_online_date.replace(tzinfo=tz).hour
                 if hour_now < hour_last_online and hour_now < 5:
                     sleep((5 - hour_now) * TimeDefinition.HOURS)
                 elif hour_now - hour_last_online < 5:
