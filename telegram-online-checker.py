@@ -44,11 +44,16 @@ def same_day_and_hour(current_day, current_hour, previous_day, previous_hour):
 
 
 def less_then_5_hours(current_day, current_hour, previous_day, previous_hour):
-    if current_day < previous_day or current_hour < previous_hour:
-        logging.error('Invalid days/hours range. Day: {}, Hour: {}, PrevDay: {}, PrevHour: {}'.format(current_day, current_hour, previous_day, previous_hour))
+    err = 'Invalid days/hours range. Day: {}, Hour: {}, PrevDay: {}, PrevHour: {}'.format(current_day, current_hour, previous_day, previous_hour)
+    
+    if current_day < previous_day:
+        logging.error(err)
         return None
 
     if current_day == previous_day:
+        if current_hour < previous_hour:
+            logging.error(err)
+            return None
         return current_hour - previous_hour < 5
 
     hours_past_day = 24 - previous_hour
