@@ -45,10 +45,12 @@ def same_day_and_hour(current_day, current_hour, previous_day, previous_hour):
 
 def less_then_5_hours(current_day, current_hour, previous_day, previous_hour):
     err = 'Invalid days/hours range. Day: {}, Hour: {}, PrevDay: {}, PrevHour: {}'.format(current_day, current_hour, previous_day, previous_hour)
-    
+
     if current_day < previous_day:
-        logging.error(err)
-        return None
+        #logging.error(err)
+        #return None
+        # Сделать проверку по месяцам и годам
+        pass
 
     if current_day == previous_day:
         if current_hour < previous_hour:
