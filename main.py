@@ -6,6 +6,7 @@ import time
 import os
 
 from pyrogram import Client, enums
+import uvloop
 import telebot
 import dotenv
 
@@ -66,6 +67,8 @@ async def main():
 
     api_id = os.environ['TELEGRAM_API_ID']
     api_hash = os.environ['TELEGRAM_API_HASH']
+    phone_number = os.environ['TELEGRAM_PHONE_NUMBER']
+    password = os.environ['TELEGRAM_PASSWORD']
     bot_token = os.environ['TELEGRAM_BOT_TOKEN']
     target_user = os.environ['TELEGRAM_TARGET_USER']
     target_chat = os.environ['TELEGRAM_TARGET_CHAT']
@@ -74,7 +77,7 @@ async def main():
     state = LastSeenState()
     bot = telebot.TeleBot(bot_token, parse_mode=None)
 
-    async with Client(':memory:', api_id, api_hash) as telegram:
+    async with Client(name='telegram', api_id=api_id, api_hash=api_hash, phone_number=phone_number, password=password) as telegram:
         user = await telegram.get_users(target_user)
         state.day, state.hour = last_seen_day_and_hour(user, tz)
         logging.info('Initial day and hour: {}, {}'.format(state.day, state.hour))
@@ -107,4 +110,7 @@ async def main():
                 continue
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    # uvloop.install() speeds up pyrogram performance
+    uvloop.install()
+    asyncio.run(main())

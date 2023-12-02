@@ -14,7 +14,7 @@ Also, you should provide chat ID with this bot in `TELEGRAM_TARGET_CHAT`.
 
 ### Telegram API
 
-Provide credentials with `TELEGRAM_API_ID` and `TELEGRAM_API_HASH`.
+Provide credentials with `TELEGRAM_API_ID`, `TELEGRAM_API_HASH`, `TELEGRAM_PHONE_NUMBER` and `TELEGRAM_PASSWORD`.
 
 ### Target Telegram User
 

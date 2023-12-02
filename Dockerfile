@@ -16,5 +16,6 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 
 COPY main.py /app/
+COPY telegram.session /app/
 
 ENTRYPOINT ["python3", "/app/main.py"]
