@@ -15,7 +15,6 @@ COPY --from=compiler /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 
-COPY telegram-online-checker.py /app/
-COPY telegram.session /app/
+COPY main.py /app/
 
-ENTRYPOINT ["python3", "/app/telegram-online-checker.py"]
+ENTRYPOINT ["python3", "/app/main.py"]

@@ -7,6 +7,7 @@ import os
 
 from pyrogram import Client, enums
 import telebot
+import dotenv
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)-8s %(message)s',
@@ -47,8 +48,6 @@ def less_then_5_hours(current_day, current_hour, previous_day, previous_hour):
     err = 'Invalid days/hours range. Day: {}, Hour: {}, PrevDay: {}, PrevHour: {}'.format(current_day, current_hour, previous_day, previous_hour)
 
     if current_day < previous_day:
-        #logging.error(err)
-        #return None
         # Сделать проверку по месяцам и годам
         pass
 
@@ -63,7 +62,8 @@ def less_then_5_hours(current_day, current_hour, previous_day, previous_hour):
 
 
 async def main():
-    client_name = 'telegram'
+    dotenv.load_dotenv()
+
     api_id = os.environ['TELEGRAM_API_ID']
     api_hash = os.environ['TELEGRAM_API_HASH']
     bot_token = os.environ['TELEGRAM_BOT_TOKEN']
@@ -74,7 +74,7 @@ async def main():
     state = LastSeenState()
     bot = telebot.TeleBot(bot_token, parse_mode=None)
 
-    async with Client(client_name, api_id, api_hash) as telegram:
+    async with Client(':memory:', api_id, api_hash) as telegram:
         user = await telegram.get_users(target_user)
         state.day, state.hour = last_seen_day_and_hour(user, tz)
         logging.info('Initial day and hour: {}, {}'.format(state.day, state.hour))
